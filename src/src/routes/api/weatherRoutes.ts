@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import Axios from 'axios';
 import HistoryService from '../../service/historyService.js';
 import WeatherService from '../../service/weatherService.js';
 import axios from 'axios';
@@ -18,7 +17,8 @@ router.post('/', async (req, res) => {
       return res.status(400).son({error: "City name is required."});
     }
     // TODO: GET weather data from city name
-    const weatherApiUrl = 'api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}';
+    const weatherApiKey = '4cdd90663ed4d6ae98bbb330627d74a0';
+    const weatherApiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${weatherApiKey}';
     
     const weatherResponse = await axios.get(weatherApiUrl);
     const weatherData = weatherResponse.data;
