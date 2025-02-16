@@ -8,6 +8,7 @@ type City = {
   name: string;
   id: string;
 }
+
 // TODO: Complete the HistoryService class
 class HistoryService {
   // TODO: Define a read method that reads from the searchHistory.json file
@@ -26,6 +27,7 @@ class HistoryService {
       })
     })
    }
+
   // TODO: Define a write method that writes the updated cities array to the searchHistory.json file
   private async write(cities: City[]): Promise<void> {
     return new Promise((resolve, reject) => {
@@ -38,10 +40,12 @@ class HistoryService {
       });
     });
   }
+
   // TODO: Define a getCities method that reads the cities from the searchHistory.json file and returns them as an array of City objects
    async getCities(): Promise<City[]> {
     return this.read();
    }
+
   // TODO Define an addCity method that adds a city to the searchHistory.json file
    async addCity(city: string): Promise<void> {
     const cities = await this.read();
@@ -52,8 +56,18 @@ class HistoryService {
     cities.push(newCity);
     await this.write(cities);
    }
+
   // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-  // async removeCity(id: string) {}
+   async removeCity(id: string): Promise<void> {
+    const cities = await this.read();
+    const index = cities.findIndex(city => city.id === id);
+    if (index !== -1) {
+      cities.splice(index, 1);
+      await this.write(cities);
+    } else {
+      throw new Error('City not found.');
+   }
+   }
 }
 
 export default new HistoryService();
