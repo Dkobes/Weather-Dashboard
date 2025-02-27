@@ -1,8 +1,8 @@
 import { Router } from 'express';
 const router = Router();
 
-import apiRoutes from '../src/index.js';
-import htmlRoutes from './routes/htmlRoutes.js';
+import apiRoutes from './api/weatherRoutes.js';
+import htmlRoutes from './htmlRoutes.js';
 
 router.use('/api', apiRoutes);
 router.use('/', htmlRoutes);
