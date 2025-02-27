@@ -58,16 +58,16 @@ class HistoryService {
    }
 
   // * BONUS TODO: Define a removeCity method that removes a city from the searchHistory.json file
-   async removeCity(id: string): Promise<void> {
-    const cities = await this.read();
-    const index = cities.findIndex(city => city.id === id);
-    if (index !== -1) {
-      cities.splice(index, 1);
-      await this.write(cities);
-    } else {
-      throw new Error('City not found.');
-   }
-   }
-}
+//    async removeCity(id: string): Promise<void> {
+//     const cities = await this.read();
+//     const index = cities.findIndex(city => city.id === id);
+//     if (index !== -1) {
+//       cities.splice(index, 1);
+//       await this.write(cities);
+//     } else {
+//       throw new Error('City not found.');
+//    }
+//    }
+ }
 
 export default new HistoryService();
