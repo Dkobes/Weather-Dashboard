@@ -22,7 +22,7 @@ class HistoryService {
             reject(err);
           }
         } else {
-          resolve(JSON.parse(data || '['));
+          resolve(JSON.parse(data || '[]'));
         }
       })
     })

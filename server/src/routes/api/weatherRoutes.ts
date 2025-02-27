@@ -17,7 +17,7 @@ router.post('/weather', async (req, res) => {
   try {
     const weatherService = new WeatherService(apiKey);
     const weatherData = await weatherService.getWeatherForCity(cityName);
-    await HistoryService.saveCityToHistory(cityName);
+    await HistoryService.addCity(cityName);
     res.json(weatherData);
   } catch (error) {
     console.error(error);
