@@ -96,13 +96,14 @@ class WeatherService {
     private parseCurrentWeather(response: any): Weather {
         const {
             name: city,
-            dt: date,
+            dt: dateUnix,
             main: { temp: tempF, humidity },
             wind: { speed: windSpeed },
             weather
         } = response;
         
         const { icon, description: iconDescription } = weather[0];
+        const date = new Date(dateUnix * 1000).toISOString();
         return new Weather(city, date, icon, iconDescription, tempF, windSpeed, humidity);
     }
 
@@ -117,7 +118,7 @@ class WeatherService {
                 item.weather[0].description,
                 item.main.temp,
                 item.wind.speed,
-                item.main.humidity,
+                item.main.humidity
 
             );
             forecastArray.push(weather);
