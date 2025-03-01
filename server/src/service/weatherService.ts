@@ -12,16 +12,22 @@ interface Coordinates {
 
 // Define a class for the Weather object
 class Weather {
-    temperature: number;
+    city: string;
+    date: string;
+    icon: string;
+    iconDescription: string;
+    tempF: number;
+    windSpeed: number;
     humidity: number;
-    pressure: number;
-    description: string;
 
-    constructor(temperature: number, humidity: number, pressure: number, description: string) {
-        this.temperature = temperature;
+    constructor(city: string, date: string, icon: string, iconDescription: string, tempF : number, windSpeed: number,  humidity: number) {
+        this.city = city;
+        this.date = date;
+        this.icon = icon;
+        this.iconDescription = iconDescription;
+        this.tempF = tempF;
+        this.windSpeed = windSpeed;
         this.humidity = humidity;
-        this.pressure = pressure;
-        this.description = description;
     }
 }
 
@@ -89,9 +95,16 @@ class WeatherService {
 
     // Build parseCurrentWeather method
     private parseCurrentWeather(response: any): Weather {
-        const { main: { temp, humidity, pressure }, weather } = response;
-        const description = weather[0].description;
-        return new Weather(temp, humidity, pressure, description);
+        const {
+            name: city,
+            dt: date,
+            main: { temp: tempF, humidity },
+            wind: { speed: windSpeed },
+            weather
+        } = response;
+        
+        const { icon, description: iconDescription } = weather[0];
+        return new Weather(city, date, icon, iconDescription, tempF, windSpeed, humidity);
     }
 
     // Complete buildForecastArray method
@@ -99,10 +112,14 @@ class WeatherService {
         const forecastArray: Weather[] = [currentWeather];
         weatherData.forEach((item) => {
             const weather = new Weather(
+                item.name,
+                item.dt,
+                item.weather[0].icon,
+                item.weather[0].description,
                 item.main.temp,
+                item.wind.speed,
                 item.main.humidity,
-                item.main.pressure,
-                item.weather[0].description
+
             );
             forecastArray.push(weather);
         });
