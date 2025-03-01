@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import axios from 'axios';
 dotenv.config();
 
-const apiKey: string = process.env.API_KEY || 'default-api-key';
 
 // Define an interface for the Coordinates object
 interface Coordinates {
@@ -39,8 +38,8 @@ class WeatherService {
     private cityName: string;
 
     constructor(cityName: string) {
-        this.baseURL = 'https://api.openweathermap.org/data/2.5/';
-        this.apiKey = apiKey;
+        this.baseURL = process.env.API_BASE_URL as string;
+        this.apiKey = process.env.API_KEY as string;
         this.cityName = cityName;
     }
 
